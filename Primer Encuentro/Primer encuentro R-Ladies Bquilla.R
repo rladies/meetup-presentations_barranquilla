@@ -1,6 +1,6 @@
 --------------------------------------
 #PRIMER ENCUENTRO R-LADIES BARRANQUILLA 
-#S¡BADO, JULIO 11 2020
+#S√ÅBADO, JULIO 11 2020
 #HAGAMOS UN POCO DE ARTE EN RSTUDIO
 --------------------------------------
 #Instalamos los paquetes necesarios:
@@ -11,20 +11,20 @@ library(readxl)
 #Cargamos la base de datos (Para asignar podemos utilizar "=")
 CEP_excel = readxl::read_excel("CEP_sep-oct_2017.xlsx")
 #Solo nos muestra la primera hoja y la que nos interesa es la segunda
-#Le indicamos que necesitamos leer la hoja en la POSICI”N 2
+#Le indicamos que necesitamos leer la hoja en la POSICI√ìN 2
 #(Para asignar podemos utilizar "<-")
 CEP_excel  <- read_excel("CEP_sep-oct_2017.xlsx",sheet = 2 )
 #Le indicamos que necesitamos leer la hoja que tiene NOMBRE "DATOS"
 read_excel("CEP_sep-oct_2017.xlsx", sheet = "DATOS") -> CEP_excel1
 
-###Otra forma es usar la funciÛn read.csv
+###Otra forma es usar la funci√≥n read.csv
 CEP_csv  <- read.csv("CEP_sep-oct_2017 .csv")
 #Se observa que solo tenemos una columna
-#Para corregirlo podemos agregar la funciÛn "sep="
+#Para corregirlo podemos agregar la funci√≥n "sep="
 CEP_csv  <- read.csv("CEP_sep-oct_2017 .csv", sep = ";")
 #Para visualizar los datos
 View(CEP_csv)
-#Con la funciÛn read.csv2 no es necesario usar sep=";"
+#Con la funci√≥n read.csv2 no es necesario usar sep=";"
 CEP_csv2 <- read.csv2("CEP_sep-oct_2017 .csv")
 
 #Importamos los datos desde excel en formato xlx en Import Dataset.
@@ -36,32 +36,32 @@ library(forcats)
 library(data.table)
 #Importamos la base de datos.
 library(readxl)
-violencia_intrafamiliar_2018 <- read_excel("C:/Users/usuario/Desktop/RLADIES/CapacitaciÛn 1/Base de datos/violencia-intrafamiliar-2018.xlsx", 
+violencia_intrafamiliar_2018 <- read_excel("C:/Users/usuario/Desktop/RLADIES/Capacitaci√≥n 1/Base de datos/violencia-intrafamiliar-2018.xlsx", 
                                            skip = 8)
 View(violencia_intrafamiliar_2018)
 
 #Creamos un nuevo objeto llamado datos para facilitar el manejo de la base de datos.
 datos <- violencia_intrafamiliar_2018
-#Para conocer la dimensiÛn de la base de datos
+#Para conocer la dimensi√≥n de la base de datos
 dim(datos)
 # Para explorar las variables y conocer su estructura
 dplyr::glimpse(datos)
 #Otra forma de observar la estructura de los datos
 str(datos)
-#Debido a que la edad no es un caracter, se convierte en numÈrico
+#Debido a que la edad no es un caracter, se convierte en num√©rico
 datos$Edad<- as.numeric(datos$Edad)
 str(datos$Edad)
-#An·lisis de la edad
+#An√°lisis de la edad
 summary(datos$Edad)
 # Para obtener las 6 primeras observaciones de la base de datos
 head(datos)
-# Para obtener las ˙ltimas 6 observaciones de la base de datos
+# Para obtener las √∫ltimas 6 observaciones de la base de datos
 tail(datos)
 #colnames para observar los nombres de las columnas o variables
 colnames(datos)
 #Para colocar los nombres de las variables en mayuscula (opcional)
 toupper(colnames(datos))
-# Resumen o descripciÛn de cada una de las variables
+# Resumen o descripci√≥n de cada una de las variables
 Hmisc::describe(datos)
 #Lista de municipios de Colombia que aparecen en la base de datos
 unique(datos$Municipio)
@@ -69,17 +69,17 @@ unique(datos$Municipio)
 datos$Municipio<- toupper(datos$Municipio)
 #Fusionar niveles
 datos$Municipio=forcats::fct_collapse(datos$Municipio,"BARRANQUILLA (CT)"=c("QUILLA (CT)", "KILLA (CT)","BARRANUQUILLA (CT)"))
-datos$Municipio=forcats::fct_collapse(datos$Municipio,"MEDELLÕN (CT)"=("MEDELLÕN(CT)"))
+datos$Municipio=forcats::fct_collapse(datos$Municipio,"MEDELL√çN (CT)"=("MEDELL√çN(CT)"))
 #Conteo de los municipios
 table(datos$Municipio)
 #Lista de departamentos de Colombia que aparecen en la base de datos
 unique(datos$Departamento)
 #Eliminar la tildes
-datos$Departamento <- chartr(old = "¡…Õ”⁄",new = "AEIOU",x = datos$Departamento)
-#Primera letra en may˙scula y las otras en minuscula
+datos$Departamento <- chartr(old = "√Å√â√ç√ì√ö",new = "AEIOU",x = datos$Departamento)
+#Primera letra en may√∫scula y las otras en minuscula
 stringr::str_sub(datos$Departamento,start = 1,end = 1) <- stringr::str_to_upper(str_sub(datos$Departamento,1,1))
 stringr::str_sub(datos$Departamento, start = 2) <- stringr::str_to_lower(str_sub(datos$Departamento, 2))
-# N˙mero de denuncias en cada departamento.
+# Conteo de los departamentos.
 table(datos$Departamento)
 #Reemplazamos los "-" de la base de datos por NA
 datos[datos== "-" ] <- NA
@@ -90,9 +90,9 @@ datos <- datos[stats::complete.cases(datos),]
 # Ver datos de Barranquilla
 # Seleccionar solo las filas donde ciudad es igual a Barranquilla
 Barranquilla <- datos[datos$Municipio == "BARRANQUILLA (CT)", ]
-#N˙mero m·ximo de casos denunciados en un dÌa
+#N√∫mero m√°ximo de casos denunciados en un d√≠a
 max(Barranquilla$Cantidad)
-#N˙mero mÌnimo de casos denunciados en un dÌa
+#N√∫mero m√≠nimo de casos denunciados en un d√≠a
 min(Barranquilla$Cantidad)
 str(Barranquilla$Cantidad)
 #Media de los datos
@@ -110,12 +110,12 @@ colnames(datos)[colnames(datos)=="x1"] <- "Departamentos"
 
 #FORMA 3
 # Renombrar una columna en R
-names(datos)[3]<-"DÌa"
+names(datos)[3]<-"D√≠a"
 
 #FORMA 4
 data.table::setnames(datos, old=c("x4", "x5"), new=c("Barrio", "Zona"))
 
 
-#Deja tu corazÛn en todo lo que haces, si lo haces con pasiÛn...
+#Deja tu coraz√≥n en todo lo que haces, si lo haces con pasi√≥n...
                          #LO TIENES TODO.
 #PRIMER ENCUENTRO R-LADIES BARRANQUILLA 
