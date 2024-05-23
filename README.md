@@ -1,1 +1,3 @@
-# meetup-presentations_barranquilla
+# R Ladies Barranquilla
+
+Archivos de los Meetups 
